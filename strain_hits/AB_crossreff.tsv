@@ -1,0 +1,34 @@
+Assembly Accession	Assembly-unit accession	Chromosome name	GC Count	GC Percent	GenBank seq accession	Molecule type	Ordering	RefSeq seq accession	Role	Seq length	UCSC style name	Unlocalized Count	Sequence name
+GCA_020184715.1	Primary Assembly	1	23286007	36.5	CM035055.1	Chromosome			assembled-molecule	64076721			Chromosome1
+GCA_020184715.1	Primary Assembly	2	23751992	37	CM035056.1	Chromosome			assembled-molecule	64389464			Chromosome2
+GCA_020184715.1	Primary Assembly	3	21647810	37	CM035057.1	Chromosome			assembled-molecule	58814869			Chromosome3
+GCA_020184715.1	Primary Assembly	4	16739757	37	CM035058.1	Chromosome			assembled-molecule	45249806			Chromosome4
+GCA_020184715.1	Primary Assembly	5	28662578	36.5	CM035059.1	Chromosome			assembled-molecule	78491709			Chromosome5
+GCA_020184715.1	Primary Assembly	6	23094770	36.5	CM035060.1	Chromosome			assembled-molecule	63463076			Chromosome6
+GCA_020184715.1	Primary Assembly	7	29097555	37	CM035061.1	Chromosome			assembled-molecule	78830602			Chromosome7
+GCA_020184715.1	Primary Assembly	8	23036905	36.5	CM035062.1	Chromosome			assembled-molecule	62896458			Chromosome8
+GCA_020184715.1	Primary Assembly	9	21441972	36.5	CM035063.1	Chromosome			assembled-molecule	58863916			Chromosome9
+GCA_020184715.1	Primary Assembly	10	17721436	36.5	CM035064.1	Chromosome			assembled-molecule	48349772			Chromosome10
+GCA_020184715.1	Primary Assembly	11	17788630	36.5	CM035065.1	Chromosome			assembled-molecule	48869238			Chromosome11
+GCA_020184715.1	Primary Assembly	12	18560280	36.5	CM035066.1	Chromosome			assembled-molecule	51164717			Chromosome12
+GCA_020184715.1	Primary Assembly	13	20729312	36.5	CM035067.1	Chromosome			assembled-molecule	56616303			Chromosome13
+GCA_020184715.1	Primary Assembly	14	21482560	36.5	CM035068.1	Chromosome			assembled-molecule	58570601			Chromosome14
+GCA_020184715.1	Primary Assembly	15	19443171	37	CM035069.1	Chromosome			assembled-molecule	52658209			Chromosome15
+GCA_020184715.1	Primary Assembly	16	21170062	36.5	CM035070.1	Chromosome			assembled-molecule	57786111			Chromosome16
+GCA_020184715.1	Primary Assembly	17	20998154	37	CM035071.1	Chromosome			assembled-molecule	57010606			Chromosome17
+GCA_020184715.1	Primary Assembly	18	20030864	36.5	CM035072.1	Chromosome			assembled-molecule	54759626			Chromosome18
+GCA_020184715.1	Primary Assembly	19	18500894	36.5	CM035073.1	Chromosome			assembled-molecule	50938646			Chromosome19
+GCA_020184715.1	Primary Assembly	20	21565777	37	CM035074.1	Chromosome			assembled-molecule	58653421			Chromosome20
+GCA_020184715.1	Primary Assembly	21	18274447	36.5	CM035075.1	Chromosome			assembled-molecule	49779501			Chromosome21
+GCA_020184715.1	Primary Assembly	22	16534105	37	CM035076.1	Chromosome			assembled-molecule	44429915			Chromosome22
+GCA_020184715.1	Primary Assembly	23	18186001	37	CM035077.1	Chromosome			assembled-molecule	49457760			Chromosome23
+GCA_020184715.1	Primary Assembly	24	15913573	36.5	CM035078.1	Chromosome			assembled-molecule	43862188			Chromosome24
+GCA_020184715.1	Primary Assembly	25	15275197	36.5	CM035079.1	Chromosome			assembled-molecule	41661998			Chromosome25
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000026.1	Chromosome			unplaced-scaffold	406641			Contig135
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000027.1	Chromosome			unplaced-scaffold	306745			Contig146
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000028.1	Chromosome			unplaced-scaffold	217144			Contig163
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000029.1	Chromosome			unplaced-scaffold	190965			Contig167
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000030.1	Chromosome			unplaced-scaffold	165360			Contig172
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000031.1	Chromosome			unplaced-scaffold	162108			Contig173
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000032.1	Chromosome			unplaced-scaffold	87027			Contig178
+GCA_020184715.1	Primary Assembly	Un			JAHVXS010000033.1	Chromosome			unplaced-scaffold	68721			Contig179

@@ -1,0 +1,26 @@
+Assembly Accession	Assembly-unit accession	Chromosome name	GC Count	GC Percent	GenBank seq accession	Molecule type	Ordering	RefSeq seq accession	Role	Seq length	UCSC style name	Unlocalized Count	Sequence name
+GCA_033170195.2	Primary Assembly	1	22844893	36.5	CP137022.2	Chromosome			assembled-molecule	63007854			1
+GCA_033170195.2	Primary Assembly	2	23320319	37	CP137033.2	Chromosome			assembled-molecule	63201493			2
+GCA_033170195.2	Primary Assembly	3	25939434	38	CP137040.2	Chromosome			assembled-molecule	67953594			3
+GCA_033170195.2	Primary Assembly	4	28961503	38	CP137041.2	Chromosome			assembled-molecule	75922006			4
+GCA_033170195.2	Primary Assembly	5	29173564	37.5	CP137042.1	Chromosome			assembled-molecule	78237543			5
+GCA_033170195.2	Primary Assembly	6	23256393	36.5	CP137043.2	Chromosome			assembled-molecule	63938911			6
+GCA_033170195.2	Primary Assembly	7	30064123	37.5	CP137044.2	Chromosome			assembled-molecule	80330649			7
+GCA_033170195.2	Primary Assembly	8	23310947	38	CP137045.2	Chromosome			assembled-molecule	61654626			8
+GCA_033170195.2	Primary Assembly	9	21555177	36.5	CP137046.2	Chromosome			assembled-molecule	59249014			9
+GCA_033170195.2	Primary Assembly	10	19221773	38	CP137023.2	Chromosome			assembled-molecule	50713349			10
+GCA_033170195.2	Primary Assembly	11	17288949	36	CP137024.2	Chromosome			assembled-molecule	47708730			11
+GCA_033170195.2	Primary Assembly	12	18845843	36	CP137025.2	Chromosome			assembled-molecule	52015400			12
+GCA_033170195.2	Primary Assembly	13	20914083	37	CP137026.1	Chromosome			assembled-molecule	56692908			13
+GCA_033170195.2	Primary Assembly	14	21946308	37.5	CP137027.1	Chromosome			assembled-molecule	58908845			14
+GCA_033170195.2	Primary Assembly	15	19522764	37.5	CP137028.1	Chromosome			assembled-molecule	52369566			15
+GCA_033170195.2	Primary Assembly	16	22378919	37.5	CP137029.2	Chromosome			assembled-molecule	59999999			16
+GCA_033170195.2	Primary Assembly	17	22497552	37.5	CP137030.2	Chromosome			assembled-molecule	59622283			17
+GCA_033170195.2	Primary Assembly	18	19829898	36.5	CP137031.1	Chromosome			assembled-molecule	54324202			18
+GCA_033170195.2	Primary Assembly	19	18792618	36.5	CP137032.2	Chromosome			assembled-molecule	51770413			19
+GCA_033170195.2	Primary Assembly	20	21995930	37	CP137034.2	Chromosome			assembled-molecule	59235379			20
+GCA_033170195.2	Primary Assembly	21	18719271	37.5	CP137035.2	Chromosome			assembled-molecule	50211683			21
+GCA_033170195.2	Primary Assembly	22	15427295	37.5	CP137036.1	Chromosome			assembled-molecule	41207290			22
+GCA_033170195.2	Primary Assembly	23	18828681	37.5	CP137037.1	Chromosome			assembled-molecule	50374098			23
+GCA_033170195.2	Primary Assembly	24	17312723	37.5	CP137038.1	Chromosome			assembled-molecule	46181438			24
+GCA_033170195.2	Primary Assembly	25	14737008	36.5	CP137039.1	Chromosome			assembled-molecule	40437631			25

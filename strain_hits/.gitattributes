@@ -1,0 +1,7 @@
+tuebingen.zip filter=lfs diff=lfs merge=lfs -text
+ab.zip filter=lfs diff=lfs merge=lfs -text
+cb.zip filter=lfs diff=lfs merge=lfs -text
+na.zip filter=lfs diff=lfs merge=lfs -text
+t2t.zip filter=lfs diff=lfs merge=lfs -text
+t5d.zip filter=lfs diff=lfs merge=lfs -text
+Tuebingen.gtf filter=lfs diff=lfs merge=lfs -text
