@@ -8,24 +8,25 @@ library(patchwork)                          # For combining ggplot2 plots
 library(circlize)                           # For creating circular plots
 library(biomaRt)                            # For biomart database querying
 library(ChIPseeker)                         # For annotating genomic regions
+library(TxDb.Drerio.UCSC.danRer11.refGene)  # For zebrafish genome annotation
+
+# Set working directory for relative paths
+setwd(this.path::here())
 
 # Load the genome annotation database for zebrafish
 # This database provides transcript and genomic annotations.
-txdb <- GenomicFeatures::makeTxDbFromGFF(
-  file = "strain_hits/Tuebingen.gtf",
-  format = "gtf"
-)
+txdb <- TxDb.Drerio.UCSC.danRer11.refGene
 
 # Read BLAST output file (-outfmt 6) and transposon sequences
 # Filters results based on e-value threshold (≤ 1e-10)
-blastout <- read_tsv("strain_hits/Tuebingen.out", col_names = FALSE) %>%
+blastout <- read_tsv("../strain_hits/Tuebingen.out", col_names = FALSE) %>%
   filter(X11 <= 1e-10)
 
 # Load cross-reference file for chromosome mapping
-chr_crossref <- read_tsv("strain_hits/Tuebingen_crossreff.tsv")
+chr_crossref <- read_tsv("../strain_hits/Tuebingen_crossreff.tsv")
 
 # Read transposon sequences from a FASTA file to extract lengths
-seqs <- readDNAStringSet("fasta/transposon_seq.fa")
+seqs <- readDNAStringSet("../fasta/transposon_seq.fa")
 
 # Create a data frame containing transposon names and their lengths
 expect <- data.frame(name = names(seqs), length = width(seqs))
@@ -89,6 +90,15 @@ p1 <- hits %>%
     text = element_text(size = 15)
   )
 
+
+blastout %>%
+  left_join(expect, by = c("X1" = "name")) %>%
+  mutate(proportion = (X8 - X7) / length) %>%
+  filter(proportion >= 0.8) %>%
+  mutate(X2 = paste0("chr", chr_crossref$`Chromosome name`[match(.$X2, chr_crossref$`RefSeq seq accession`)])) %>%
+  group_by(X1) %>%
+  summarise(N = n())
+
 # Plot BLAST hits at 80% alignment threshold grouped by chromosome
 p2 <- blastout %>%
   left_join(expect, by = c("X1" = "name")) %>%
@@ -120,15 +130,18 @@ p2 <- blastout %>%
 
 # Combine and save the two plots
 p3 <- p1 + p2 + plot_annotation(tag_levels = "A")
-ggsave("output/blast_summary.png", p3, width = 14, height = 10, units = 'in', dpi = 300)
+ggsave("../output/blast_summary.png", p3, width = 14, height = 10, units = 'in', dpi = 300)
+
+# Save p1
+ggsave("../output/transposon_hits.png", p1, width = 7, height = 5, units = 'in', dpi = 300)
 
 ##########################
 ### Strain Comparisons ###
 ##########################
 
 # Define file paths
-hit_files <- list.files("./strain_hits/", pattern = "\\.out$", full.names = TRUE)
-crossref_files <- list.files("./strain_hits/", pattern = "crossreff", full.names = TRUE)
+hit_files <- list.files("../strain_hits/", pattern = "\\.out$", full.names = TRUE)
+crossref_files <- list.files("../strain_hits/", pattern = "crossreff", full.names = TRUE)
 
 # Initialize hits data frame
 hits <- data.frame()
@@ -657,21 +670,58 @@ dev.off()
 
 transp <- hits %>% 
   filter(strain == "Tuebingen",
-         str_detect(`UCSC style name`, "chr[0-9]+$")) 
+         str_detect(`UCSC style name`, "chr[0-9]+$")) %>%
+  rename("query" = "query acc.ver")
 
-transpGR <- GRanges(seqnames = transp$`UCSC style name`,
-                    ranges = IRanges(start = transp$`s. start`,
-                                     end = transp$`s. end`))
 
-peaks <- annotatePeak(
-  transpGR,
-  TxDb = txdb, level = "transcript", assignGenomicAnnotation = TRUE,
-  annoDb = NULL, addFlankGeneInfo = FALSE, flankDistance = 5000, sameStrand = FALSE, 
-  ignoreOverlap = FALSE, ignoreUpstream = FALSE, ignoreDownstream = FALSE, 
-  overlap = "TSS", verbose = TRUE
-)
+for (transposon in unique(transp$query)) {
 
-# Create and save an upset plot for annotation results
-upsetplot(peaks, vennpie = TRUE)
-ggsave("output/transposon_coordinate_annotations.png", p, width = 10, height = 10, units = 'in', dpi = 300)
+    transp_temp <- transp %>%
+        filter(query == transposon)
 
+    transp_gr <- GRanges(seqnames = transp_temp$`UCSC style name`,
+                         ranges = IRanges(start = transp_temp$`s. start`,
+                                          end = transp_temp$`s. end`))
+
+    # Annotate transposon insertion sites
+    peaks <- annotatePeak(
+        transp_gr,
+        TxDb = txdb,
+        level = "transcript",
+        assignGenomicAnnotation = TRUE,
+        annoDb = NULL,
+        addFlankGeneInfo = FALSE,
+        flankDistance = 5000,
+        sameStrand = FALSE,
+        ignoreOverlap = FALSE,
+        ignoreUpstream = FALSE,
+        ignoreDownstream = FALSE,
+        overlap = "TSS",
+        verbose = TRUE
+    )
+
+    if(transposon == "EnSpm-N49/N49B"){
+      transposon <- "EnSpm-N49_N49B"
+    }
+    # Create and save an upset plot for annotation results
+    output_path <- paste0(
+        "../output/transposon_coordinate_annotations_upsetplot_", 
+        transposon,
+        ".pdf"
+    )
+
+    pdf(output_path, width = 10, height = 10)
+    print(upsetplot(peaks, vennpie = F))
+    dev.off()
+
+    output_path <- paste0(
+    "../output/transposon_coordinate_annotations_vennpie_", 
+    transposon,
+    ".pdf"
+    )
+
+    pdf(output_path, width = 10, height = 10)
+    vennpie(peaks)
+    dev.off()
+
+}
