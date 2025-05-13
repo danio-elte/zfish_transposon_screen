@@ -776,6 +776,13 @@ genome_freq <- oligonucleotideFrequency(genome, width = 2, as.prob = TRUE) %>%
   pivot_longer(cols = everything(), names_to = 'Dinucleotide', values_to = 'Frequency') %>%
   mutate(Category = "Genome\nbackground")
 
+# Generate genomic ranges for TE flanking regions (±50 bp around TE hit)
+flanking_size <- 100
+te_flanks <- flank(te_granges, width = flanking_size, both = T)
+
+# Extract TE-flanking sequences from the genome
+te_sequences <- genome[te_flanks]
+
 # Compute dinucleotide frequencies in TE-flanking regions and compare with genome background
 oligonucleotideFrequency(te_sequences, width = 2, as.prob = TRUE) %>%
   as_tibble() %>%
@@ -796,12 +803,6 @@ oligonucleotideFrequency(te_sequences, width = 2, as.prob = TRUE) %>%
   split_plot(by = Dinucleotide, height = 30, width = 50) |>  # Facet plot by dinucleotide
   save_plot("../output/dinucl_freq.pdf")  # Save plot
 
-# Generate genomic ranges for TE flanking regions (±50 bp around TE hit)
-flanking_size <- 100
-te_flanks <- flank(te_granges, width = flanking_size, both = T)
-
-# Extract TE-flanking sequences from the genome
-te_sequences <- genome[te_flanks]
 
 # Run motif discovery using MEME on TE-flanking sequences
 meme_results <- run_meme(
