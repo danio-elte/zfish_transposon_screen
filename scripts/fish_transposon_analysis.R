@@ -797,8 +797,8 @@ oligonucleotideFrequency(te_sequences, width = 2, as.prob = TRUE) %>%
   save_plot("../output/dinucl_freq.pdf")  # Save plot
 
 # Generate genomic ranges for TE flanking regions (±50 bp around TE hit)
-flanking_size <- 50
-te_flanks <- resize(te_granges, GenomicRanges::width(te_granges) + 2 * flanking_size, fix = "center")
+flanking_size <- 100
+te_flanks <- flank(te_granges, width = flanking_size, both = T)
 
 # Extract TE-flanking sequences from the genome
 te_sequences <- genome[te_flanks]
@@ -807,12 +807,11 @@ te_sequences <- genome[te_flanks]
 meme_results <- run_meme(
   te_sequences,
   bin = "/Users/ferenc.kagan/Documents/Tools/meme/bin/meme",  # Path to MEME binary
-  minw = 3,       # Minimum motif width
-  maxw = 9,       # Maximum motif width
+  minw = 2,       # Minimum motif width
+  maxw = 10,       # Maximum motif width
   nmotif = 5,     # Number of motifs to discover
-  revcomp = TRUE, # Search reverse complements
-  mod = "zoops",  # Zero or one occurrence per sequence
-  objfun = "de"   # Objective function for discrimination
+  revcomp = T, # Search reverse complements
+  mod = "zoops"  # Zero or one occurrence per sequence
 )
 
 # View top discovered motifs (metadata)
@@ -841,6 +840,7 @@ motif_df <- data.frame(
   Name = paste0("Motif-", 1:5),
   Consensus = sapply(meme_results$motifs, function(x) x@consensus),  # Extract consensus sequence
   E_value = formatC(sapply(meme_results$motifs, function(x) x@eval), format = "e", digits = 1),  # Format E-values
+  is_significant = ifelse(sapply(meme_results$motifs, function(x) x@eval) <= 0.05, "True", "False"),
   Logo = path_images,  # Paths to logos
   stringsAsFactors = FALSE
 )
@@ -858,6 +858,7 @@ ft <- motif_df %>%
     Name = "Motif Name",
     Consensus = "Consensus Sequence",
     E_value = "E-value",
+    is_significant = "Significant",
     Logo = "Sequence Logo"
   ) %>%
   fontsize(size = 11, part = "all") %>%
