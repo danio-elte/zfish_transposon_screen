@@ -1,14 +1,21 @@
 # Load required libraries for analysis and visualization
-library(GenomicRanges)                      # For working with genomic intervals
-library(rtracklayer)                        # For importing/exporting genomic data
-library(RColorBrewer)                       # For color palettes
-library(tidyverse)                          # For data manipulation and visualization
-library(Biostrings)                         # For handling biological sequences
-library(patchwork)                          # For combining ggplot2 plots
-library(circlize)                           # For creating circular plots
-library(biomaRt)                            # For biomart database querying
-library(ChIPseeker)                         # For annotating genomic regions
-library(TxDb.Drerio.UCSC.danRer11.refGene)  # For zebrafish genome annotation
+library(GenomicRanges)                  
+library(rtracklayer)                        
+library(RColorBrewer)                       
+library(tidyverse)                         
+library(Biostrings)                         
+library(patchwork)                          
+library(circlize)                           
+library(biomaRt)                            
+library(ChIPseeker)                         
+library(TxDb.Drerio.UCSC.danRer11.refGene)
+library(flextable)
+library(officer)
+library(officedown) 
+library(magrittr)
+library(universalmotif)
+library(seqLogo)
+library(tidyplots)
 
 # Set working directory for relative paths
 setwd(this.path::here())
@@ -75,19 +82,22 @@ p1 <- hits %>%
   mutate(name = case_when(name == "N49" ~ "EnSpm-N49_DR",
                           name == "N49B" ~ "EnSpm-N49B_DR",
                           name == "hybrid" ~ "EnSpm-N49/N49B_DR"),
-         name = factor(name, levels = c("EnSpm-N49_DR", "EnSpm-N49B_DR", "EnSpm-N49/N49B_DR"))) %>%
+         name = factor(name, levels = c("EnSpm-N49_DR", "EnSpm-N49B_DR", "EnSpm-N49/N49B_DR")),
+         percent = percent * 100) %>%
   ggplot(aes(x = percent, y = value, color = name)) +
-  geom_line(linewidth = 2) +
-  xlab("% of transposon\naligned to genome") +
+  geom_line(linewidth = 4) +
+  xlab("% of transposon aligned to genome") +
   ylab("Number of transposon hits") +
   scale_color_manual(values = c("#FFAC94", "#FF83B1", "#7FAF75")) +
   labs(color = NULL) +
+  geom_vline(xintercept = 80, linetype = "dashed", linewidth = 2) +
   theme_linedraw() +
   theme(
     legend.position = c(0.78, 0.86),
     legend.background = element_blank(),
     legend.box.background = element_rect(colour = "black"),
-    text = element_text(size = 15)
+    text = element_text(size = 20),
+    axis.text = element_text(size = 18)
   )
 
 
@@ -133,7 +143,7 @@ p3 <- p1 + p2 + plot_annotation(tag_levels = "A")
 ggsave("../output/blast_summary.png", p3, width = 14, height = 10, units = 'in', dpi = 300)
 
 # Save p1
-ggsave("../output/transposon_hits.png", p1, width = 7, height = 5, units = 'in', dpi = 300)
+ggsave("../output/transposon_hits.pdf", p1, width = 7, height = 5, units = 'in', dpi = 300)
 
 ##########################
 ### Strain Comparisons ###
@@ -725,3 +735,135 @@ for (transposon in unique(transp$query)) {
     dev.off()
 
 }
+
+###################################################
+###                                             ###
+### Tandem Site Duplication Enrichment Analysis ###
+###                                             ###
+###################################################
+# Join BLAST output with expected hit lengths and compute match proportion
+blastout <- blastout %>%
+  left_join(expect, by = c("X1" = "name")) %>%
+  mutate(proportion = (X8 - X7) / length) %>%  # Calculate proportion of query covered by hit
+  filter(proportion >= 0.8) %>%  # Keep only high-confidence hits (>= 80% coverage)
+  mutate(X2 = paste0("chr", 
+                     chr_crossref$`Chromosome name`[match(.$X2, chr_crossref$`RefSeq seq accession`)]))  # Replace accession with chromosome name
+
+# Rename BLAST output columns for readability
+colnames(blastout) <- c(
+  "query acc.ver", "subject acc.ver", "% identity", "alignment length",
+  "mismatches", "gap opens", "q. start", "q. end",
+  "s. start", "s. end", "evalue", "bit score"
+)
+
+# Create genomic ranges for Tuebingen strain hits
+te_granges <- GRanges(
+  seqnames = blastout$`subject acc.ver`,
+  IRanges(
+    start = pmin(blastout$`s. start`, blastout$`s. end`),  # Ensure start is always <= end
+    end = pmax(blastout$`s. start`, blastout$`s. end`)
+  )
+)
+
+# Read the reference genome (limit to first 25 chromosomes)
+genome <- readDNAStringSet("../fasta/GCA_033170195.3_ASM3317019v3_genomic.fna")
+genome <- genome[1:25]
+names(genome) <- str_replace_all(str_extract_all(names(genome), "chromosome [0-9]+"), "chromosome ", "chr")
+
+# Compute dinucleotide frequencies for the whole genome (background)
+genome_freq <- oligonucleotideFrequency(genome, width = 2, as.prob = TRUE) %>%
+  as_tibble() %>%
+  pivot_longer(cols = everything(), names_to = 'Dinucleotide', values_to = 'Frequency') %>%
+  mutate(Category = "Genome\nbackground")
+
+# Compute dinucleotide frequencies in TE-flanking regions and compare with genome background
+oligonucleotideFrequency(te_sequences, width = 2, as.prob = TRUE) %>%
+  as_tibble() %>%
+  pivot_longer(cols = everything(), names_to = 'Dinucleotide', values_to = 'Frequency') %>%
+  mutate(Category = "TE\nflanking") %>%
+  rbind(., genome_freq) %>%
+  tidyplot(x = Category, y = Frequency, color = Category) |> 
+  add_data_points_jitter(white_border = TRUE, alpha = 0.3) |>  # Add jittered points for visibility
+  add_boxplot() |>  # Overlay boxplot
+  add_test_pvalue(p.adjust.method = 'BH', 
+                  hide.ns = TRUE, 
+                  hide_info = TRUE, 
+                  label = "p.adj.signif",
+                  method = "wilcox_test") |>  # Wilcoxon test for pairwise comparison
+  remove_x_axis_title() |>  # Clean up plot aesthetics
+  remove_legend() |> 
+  adjust_font(fontsize = 10) |>
+  split_plot(by = Dinucleotide, height = 30, width = 50) |>  # Facet plot by dinucleotide
+  save_plot("../output/dinucl_freq.pdf")  # Save plot
+
+# Generate genomic ranges for TE flanking regions (±50 bp around TE hit)
+flanking_size <- 50
+te_flanks <- resize(te_granges, GenomicRanges::width(te_granges) + 2 * flanking_size, fix = "center")
+
+# Extract TE-flanking sequences from the genome
+te_sequences <- genome[te_flanks]
+
+# Run motif discovery using MEME on TE-flanking sequences
+meme_results <- run_meme(
+  te_sequences,
+  bin = "/Users/ferenc.kagan/Documents/Tools/meme/bin/meme",  # Path to MEME binary
+  minw = 3,       # Minimum motif width
+  maxw = 9,       # Maximum motif width
+  nmotif = 5,     # Number of motifs to discover
+  revcomp = TRUE, # Search reverse complements
+  mod = "zoops",  # Zero or one occurrence per sequence
+  objfun = "de"   # Objective function for discrimination
+)
+
+# View top discovered motifs (metadata)
+head(meme_results)
+
+# Plot sequence logos for each motif and save as PNG
+for (i in seq_along(meme_results$motifs)) {
+  motif_pwm <- convert_motifs(meme_results$motifs[[i]], class = "seqLogo-pwm")  # Convert motif to PWM format
+  
+  png(paste0("../output/seqlogo", i, ".png"), width = 4, height = 3, units = 'in', res = 300)
+  seqLogo(motif_pwm, xaxis = FALSE, yaxis = TRUE)  # Plot logo
+  dev.off()
+}
+
+# Define paths to saved motif logo images
+path_images <- c(
+  "/Users/ferenc.kagan/Documents/Projects/fish_transposon/output/seqlogo1.png",
+  "/Users/ferenc.kagan/Documents/Projects/fish_transposon/output/seqlogo2.png",
+  "/Users/ferenc.kagan/Documents/Projects/fish_transposon/output/seqlogo3.png",
+  "/Users/ferenc.kagan/Documents/Projects/fish_transposon/output/seqlogo4.png",
+  "/Users/ferenc.kagan/Documents/Projects/fish_transposon/output/seqlogo5.png"
+)
+
+# Create data frame summarizing motifs with consensus sequences and logos
+motif_df <- data.frame(
+  Name = paste0("Motif-", 1:5),
+  Consensus = sapply(meme_results$motifs, function(x) x@consensus),  # Extract consensus sequence
+  E_value = formatC(sapply(meme_results$motifs, function(x) x@eval), format = "e", digits = 1),  # Format E-values
+  Logo = path_images,  # Paths to logos
+  stringsAsFactors = FALSE
+)
+
+# Create nicely formatted table with embedded motif logos
+ft <- motif_df %>%
+  flextable() %>%
+  compose(
+    j = "Logo",
+    value = as_paragraph(
+      as_image(src = Logo, width = 1.5, height = 1, unit = "in")  # Embed images
+    )
+  ) %>%
+  set_header_labels(
+    Name = "Motif Name",
+    Consensus = "Consensus Sequence",
+    E_value = "E-value",
+    Logo = "Sequence Logo"
+  ) %>%
+  fontsize(size = 11, part = "all") %>%
+  align(align = "center", part = "all") %>%
+  autofit()
+
+# Display flextable in interactive R session or export using `save_as_docx(ft)` or similar
+ft
+

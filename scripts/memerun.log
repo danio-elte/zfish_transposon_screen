@@ -1,0 +1,110 @@
+Writing results to output directory '/Users/ferenc.kagan/Documents/Projects/fish_transposon/scripts/meme_tmp'.
+Duplicate sequence name. Skipping 'chr14'.
+Duplicate sequence name. Skipping 'chr14'.
+Duplicate sequence name. Skipping 'chr13'.
+Duplicate sequence name. Skipping 'chr13'.
+Duplicate sequence name. Skipping 'chr6'.
+Duplicate sequence name. Skipping 'chr6'.
+Duplicate sequence name. Skipping 'chr6'.
+Duplicate sequence name. Skipping 'chr5'.
+Duplicate sequence name. Skipping 'chr5'.
+Duplicate sequence name. Skipping 'chr21'.
+Duplicate sequence name. Skipping 'chr16'.
+Duplicate sequence name. Skipping 'chr16'.
+Duplicate sequence name. Skipping 'chr16'.
+Duplicate sequence name. Skipping 'chr9'.
+Duplicate sequence name. Skipping 'chr9'.
+Duplicate sequence name. Skipping 'chr9'.
+Duplicate sequence name. Skipping 'chr8'.
+Duplicate sequence name. Skipping 'chr8'.
+Duplicate sequence name. Skipping 'chr9'.
+Duplicate sequence name. Skipping 'chr20'.
+Duplicate sequence name. Skipping 'chr20'.
+Duplicate sequence name. Skipping 'chr20'.
+Duplicate sequence name. Skipping 'chr4'.
+Duplicate sequence name. Skipping 'chr4'.
+Duplicate sequence name. Skipping 'chr4'.
+Duplicate sequence name. Skipping 'chr2'.
+Duplicate sequence name. Skipping 'chr2'.
+Duplicate sequence name. Skipping 'chr2'.
+Duplicate sequence name. Skipping 'chr2'.
+Duplicate sequence name. Skipping 'chr11'.
+Duplicate sequence name. Skipping 'chr11'.
+Duplicate sequence name. Skipping 'chr1'.
+Duplicate sequence name. Skipping 'chr1'.
+Duplicate sequence name. Skipping 'chr1'.
+Duplicate sequence name. Skipping 'chr1'.
+Duplicate sequence name. Skipping 'chr9'.
+Duplicate sequence name. Skipping 'chr24'.
+Duplicate sequence name. Skipping 'chr11'.
+Duplicate sequence name. Skipping 'chr6'.
+Duplicate sequence name. Skipping 'chr23'.
+Duplicate sequence name. Skipping 'chr14'.
+Duplicate sequence name. Skipping 'chr5'.
+Duplicate sequence name. Skipping 'chr10'.
+Duplicate sequence name. Skipping 'chr5'.
+Duplicate sequence name. Skipping 'chr1'.
+Duplicate sequence name. Skipping 'chr7'.
+Duplicate sequence name. Skipping 'chr8'.
+Duplicate sequence name. Skipping 'chr25'.
+Duplicate sequence name. Skipping 'chr6'.
+Duplicate sequence name. Skipping 'chr6'.
+Duplicate sequence name. Skipping 'chr5'.
+Duplicate sequence name. Skipping 'chr21'.
+Duplicate sequence name. Skipping 'chr21'.
+Duplicate sequence name. Skipping 'chr16'.
+Duplicate sequence name. Skipping 'chr4'.
+Duplicate sequence name. Skipping 'chr11'.
+Duplicate sequence name. Skipping 'chr11'.
+Duplicate sequence name. Skipping 'chr1'.
+Duplicate sequence name. Skipping 'chr19'.
+Duplicate sequence name. Skipping 'chr10'.
+Duplicate sequence name. Skipping 'chr7'.
+Duplicate sequence name. Skipping 'chr22'.
+Duplicate sequence name. Skipping 'chr5'.
+Duplicate sequence name. Skipping 'chr11'.
+Duplicate sequence name. Skipping 'chr13'.
+Duplicate sequence name. Skipping 'chr8'.
+Duplicate sequence name. Skipping 'chr20'.
+Duplicate sequence name. Skipping 'chr3'.
+Duplicate sequence name. Skipping 'chr8'.
+Duplicate sequence name. Skipping 'chr8'.
+Creating shuffled version of primary dataset (preserving 2-mer frequencies) as control...
+BACKGROUND: using background model of order 0
+PRIMARY (de): n 25 p0 12 p1 6 p2 7
+CONTROL (de): n 95 c0 25 c1 35 c2 35
+SEQUENCE GROUP USAGE-- Starts/EM: p0 vs c0; Trim: p1 vs c1; pvalue: p2 vs c1,c2; nsites: p0,p1,p2 vs c0,c1,c2
+SEEDS: maxwords 60255 highwater mark: seq 12 pos 2568
+
+seqs=    25, min_w=2351, max_w= 3859, total_size=    65421
+
+motif=1
+SEED DEPTHS: estimated from data
+SEED WIDTHS: 3 5 7 9
+starts: w=3, seq=0, l=2573				starts: w=3, seq=5, l=2574				starts: w=3, seq=10, l=2579				starts: w=5, seq=0, l=2573				starts: w=5, seq=5, l=2574				starts: w=5, seq=10, l=2579				starts: w=7, seq=0, l=2573				starts: w=7, seq=5, l=2574				starts: w=7, seq=10, l=2579				starts: w=9, seq=0, l=2573				starts: w=9, seq=5, l=2574				starts: w=9, seq=10, l=2579				em: w=   3, psites=  12, iter=   0 em: w=   3, psites=  12, iter=  10 em: w=   3, psites=  12, iter=  20 em: w=   3, psites=  12, iter=  30 em: w=   3, psites=  12, iter=  40 em: w=   5, psites=  12, iter=   0 em: w=   5, psites=  12, iter=  10 em: w=   5, psites=  12, iter=  20 em: w=   5, psites=  12, iter=  30 em: w=   5, psites=  12, iter=  40 em: w=   7, psites=  12, iter=   0 em: w=   7, psites=  12, iter=  10 em: w=   7, psites=  12, iter=  20 em: w=   7, psites=  12, iter=  30 em: w=   9, psites=   8, iter=   0 em: w=   9, psites=   8, iter=  10 em: w=   9, psites=   8, iter=  20 em: w=   9, psites=   8, iter=  30 Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+
+motif=2
+SEED DEPTHS: estimated from data
+SEED WIDTHS: 3 5 7 9
+starts: w=3, seq=0, l=2573				starts: w=3, seq=5, l=2574				starts: w=3, seq=10, l=2579				starts: w=5, seq=0, l=2573				starts: w=5, seq=5, l=2574				starts: w=5, seq=10, l=2579				starts: w=7, seq=0, l=2573				starts: w=7, seq=5, l=2574				starts: w=7, seq=10, l=2579				starts: w=9, seq=0, l=2573				starts: w=9, seq=5, l=2574				starts: w=9, seq=10, l=2579				em: w=   3, psites=  12, iter=   0 em: w=   3, psites=  12, iter=  10 em: w=   3, psites=  12, iter=  20 em: w=   3, psites=  12, iter=  30 em: w=   3, psites=  12, iter=  40 em: w=   5, psites=   9, iter=   0 em: w=   5, psites=   9, iter=  10 em: w=   5, psites=   9, iter=  20 em: w=   5, psites=   9, iter=  30 em: w=   5, psites=   9, iter=  40 em: w=   7, psites=  12, iter=   0 em: w=   7, psites=  12, iter=  10 em: w=   7, psites=  12, iter=  20 em: w=   7, psites=  12, iter=  30 em: w=   7, psites=  12, iter=  40 em: w=   9, psites=   8, iter=   0 em: w=   9, psites=   8, iter=  10 em: w=   9, psites=   8, iter=  20 em: w=   9, psites=   8, iter=  30 Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+
+motif=3
+SEED DEPTHS: estimated from data
+SEED WIDTHS: 3 5 7 9
+starts: w=3, seq=0, l=2573				starts: w=3, seq=5, l=2574				starts: w=3, seq=10, l=2579				starts: w=5, seq=0, l=2573				starts: w=5, seq=5, l=2574				starts: w=5, seq=10, l=2579				starts: w=7, seq=0, l=2573				starts: w=7, seq=5, l=2574				starts: w=7, seq=10, l=2579				starts: w=9, seq=0, l=2573				starts: w=9, seq=5, l=2574				starts: w=9, seq=10, l=2579				em: w=   3, psites=  12, iter=   0 em: w=   3, psites=  12, iter=  10 em: w=   3, psites=  12, iter=  20 em: w=   3, psites=  12, iter=  30 em: w=   3, psites=  12, iter=  40 em: w=   5, psites=   9, iter=   0 em: w=   5, psites=   9, iter=  10 em: w=   5, psites=   9, iter=  20 em: w=   5, psites=   9, iter=  30 em: w=   5, psites=   9, iter=  40 em: w=   7, psites=  12, iter=   0 em: w=   7, psites=  12, iter=  10 em: w=   7, psites=  12, iter=  20 em: w=   7, psites=  12, iter=  30 em: w=   7, psites=  12, iter=  40 em: w=   9, psites=   8, iter=   0 em: w=   9, psites=   8, iter=  10 em: w=   9, psites=   8, iter=  20 em: w=   9, psites=   8, iter=  30 Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+
+motif=4
+SEED DEPTHS: estimated from data
+SEED WIDTHS: 3 5 7 9
+starts: w=3, seq=0, l=2573				starts: w=3, seq=5, l=2574				starts: w=3, seq=10, l=2579				starts: w=5, seq=0, l=2573				starts: w=5, seq=5, l=2574				starts: w=5, seq=10, l=2579				starts: w=7, seq=0, l=2573				starts: w=7, seq=5, l=2574				starts: w=7, seq=10, l=2579				starts: w=9, seq=0, l=2573				starts: w=9, seq=5, l=2574				starts: w=9, seq=10, l=2579				em: w=   3, psites=  12, iter=   0 em: w=   3, psites=  12, iter=  10 em: w=   3, psites=  12, iter=  20 em: w=   3, psites=  12, iter=  30 em: w=   3, psites=  12, iter=  40 em: w=   5, psites=   9, iter=   0 em: w=   5, psites=   9, iter=  10 em: w=   5, psites=   9, iter=  20 em: w=   5, psites=   9, iter=  30 em: w=   5, psites=   9, iter=  40 em: w=   7, psites=  11, iter=   0 em: w=   7, psites=  11, iter=  10 em: w=   7, psites=  11, iter=  20 em: w=   7, psites=  11, iter=  30 em: w=   7, psites=  11, iter=  40 em: w=   9, psites=   8, iter=   0 em: w=   9, psites=   8, iter=  10 em: w=   9, psites=   8, iter=  20 em: w=   9, psites=   8, iter=  30 Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+
+motif=5
+SEED DEPTHS: estimated from data
+SEED WIDTHS: 3 5 7 9
+starts: w=3, seq=0, l=2573				starts: w=3, seq=5, l=2574				starts: w=3, seq=10, l=2579				starts: w=5, seq=0, l=2573				starts: w=5, seq=5, l=2574				starts: w=5, seq=10, l=2579				starts: w=7, seq=0, l=2573				starts: w=7, seq=5, l=2574				starts: w=7, seq=10, l=2579				starts: w=9, seq=0, l=2573				starts: w=9, seq=5, l=2574				starts: w=9, seq=10, l=2579				em: w=   3, psites=  12, iter=   0 em: w=   3, psites=  12, iter=  10 em: w=   3, psites=  12, iter=  20 em: w=   3, psites=  12, iter=  30 em: w=   3, psites=  12, iter=  40 em: w=   5, psites=   9, iter=   0 em: w=   5, psites=   9, iter=  10 em: w=   5, psites=   9, iter=  20 em: w=   5, psites=   9, iter=  30 em: w=   5, psites=   9, iter=  40 em: w=   7, psites=  11, iter=   0 em: w=   7, psites=  11, iter=  10 em: w=   7, psites=  11, iter=  20 em: w=   7, psites=  11, iter=  30 em: w=   7, psites=  11, iter=  40 em: w=   9, psites=   8, iter=   0 em: w=   9, psites=   8, iter=  10 em: w=   9, psites=   8, iter=  20 em: w=   9, psites=   8, iter=  30 Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+
