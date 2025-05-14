@@ -777,12 +777,38 @@ genome_freq <- oligonucleotideFrequency(genome, width = 2, as.prob = TRUE) %>%
   mutate(Category = "Genome\nbackground")
 
 # Generate genomic ranges for TE flanking regions (±50 bp around TE hit)
-flanking_size <- 20
+flanking_size <- 10
 te_flanks_start <- flank(te_granges, width = flanking_size, start = T)
 te_flanks_end <- flank(te_granges, width = flanking_size, start = F)
 
 # Extract TE-flanking sequences from the genome
-te_sequences <- genome[c(te_flanks_start, te_flanks_end)]
+te_sequences_flank <- genome[c(te_flanks_start, te_flanks_end)]
+te_sequences <- genome[te_granges]
+
+# Create separator of 10 'N's as DNAString
+separator <- DNAString(paste(rep("N", 10), collapse = ""))
+
+# Split sequences back into start and end flanks
+start_flanks <- te_sequences_flank[1:length(te_flanks_start)]
+end_flanks <- te_sequences_flank[(length(te_flanks_start)+1):length(te_sequences_flank)]
+
+# Concatenate corresponding elements with separator
+concatenated <- DNAStringSet(mapply(
+  function(s, e) xscat(s, tolower(separator), e), 
+  start_flanks, 
+  end_flanks
+))
+
+names(concatenated) <- paste0(seqnames(te_granges), ":", start(te_granges), "-", end(te_granges))
+
+writeXStringSet(x = concatenated, filepath = "../output/flanking_sequences_in_T2T.fasta" )
+
+# Concatenate corresponding elements with separator
+concatenated <- xscat(start_flanks, te_sequences, end_flanks)
+names(concatenated) <- paste0(seqnames(te_granges), ":", start(te_granges), "-", end(te_granges))
+
+writeXStringSet(x = concatenated, filepath = "../output/te_flanking_sequences_in_T2T.fasta" )
+
 
 # Compute dinucleotide frequencies in TE-flanking regions and compare with genome background
 oligonucleotideFrequency(te_sequences, width = 2, as.prob = TRUE) %>%
