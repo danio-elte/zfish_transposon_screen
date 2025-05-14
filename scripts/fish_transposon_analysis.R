@@ -777,11 +777,12 @@ genome_freq <- oligonucleotideFrequency(genome, width = 2, as.prob = TRUE) %>%
   mutate(Category = "Genome\nbackground")
 
 # Generate genomic ranges for TE flanking regions (±50 bp around TE hit)
-flanking_size <- 100
-te_flanks <- flank(te_granges, width = flanking_size, both = T)
+flanking_size <- 20
+te_flanks_start <- flank(te_granges, width = flanking_size, start = T)
+te_flanks_end <- flank(te_granges, width = flanking_size, start = F)
 
 # Extract TE-flanking sequences from the genome
-te_sequences <- genome[te_flanks]
+te_sequences <- genome[c(te_flanks_start, te_flanks_end)]
 
 # Compute dinucleotide frequencies in TE-flanking regions and compare with genome background
 oligonucleotideFrequency(te_sequences, width = 2, as.prob = TRUE) %>%
