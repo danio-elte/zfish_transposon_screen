@@ -23,9 +23,8 @@ The structure of the repository is the following:
   - Output of TE insertion counts per 2 Mb bins are also stored here (`[strain name]-TE_hits_binned.csv`)  
 - Different plots can be found in the `outputs/`
 - Fasta files used during analyses are stored in `fasta/`
-- piRNA and TE complementarity was also screened, the output of this screen can be found in `TE-piRNA_complementarity/`
 - Scripts used:
   - `scripts/fish_transposon_analysis.R` - mains script used for plotting and analysis
-  - `scripts/pirna-2-te.sh` - script used for screening piRNA and TE complementarity using a BWA short read aligner
-  - `scripts/piRNA-2-TE.py` - miscellaneous script used to process the BWA short read alignment output
+  - `scripts/2025Varga-ich_mapping_ms-figure_scripts.R` - script used for generating publication plots
+
 
